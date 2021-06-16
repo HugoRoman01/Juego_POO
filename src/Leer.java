@@ -107,15 +107,20 @@ public class Leer {
 
         for(String elemento_final : lista_final ){
 
-            
+            String[] temp= elemento.replace(")"," ").trim().split("\\(");
+            String nombreOBJ = temp[0];
+            String localizacion = temp[1].trim();
+            String[] temp2= elemento_final.replace(")"," ").trim().split("\\(");
+            String localizacion_final = temp2[1].trim();
 
-
-
+            objetos.add(nombreOBJ,localizacion,localizacion_final);
 
         }
 
 
     }
+
+    
 }
     
 
