@@ -5,11 +5,17 @@ public class main{
     static int accion;
     static int op;
     static int nada;
+    public int MovimientosTotales;
+    public int CogerObjetosTotales;
+    public int DarObjetosTotales;
+    public int PeticionesTotales;
+
+
 
 
     public static void main(String[] args) {
 
-        System.out.println("Bienvenido a nuyestro juego");
+        System.out.println("Bienvenido a nuestro juego");
 
         do{
             switch(op){
@@ -18,7 +24,7 @@ public class main{
                     	
 					System.out.println("NADA");
 					nada++;
-		\		   	if(nada==3) {System.out.println("FIN DEL JUEGO");}  //caso de que ningun personaje haga nada
+				   	if(nada==3) {System.out.println("FIN DEL JUEGO");}  //caso de que ningun personaje haga nada
 			   		continue;
 
 
