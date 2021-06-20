@@ -1,4 +1,4 @@
-public class main{
+public class Controlador{
 
 
     static String parametro;
