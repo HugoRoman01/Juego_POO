@@ -1,16 +1,19 @@
+package Lectura;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import Lugares.Lugares;
 import Objetos.*;
 import Personajes.*;
 
 public class Leer {
-    private static List<Personajes>personajes_list = new ArrayList<Personajes>();
-	private static List<Lugares> localizaciones = new ArrayList<Lugares>();
-	private static List<Objetos>objetos_list = new ArrayList<Objetos>();
-    private static List<NPC> npc = new ArrayList<NPC>();
+    public static List<Personajes>personajes_list = new ArrayList<Personajes>();
+	public static List<Lugares>localizaciones_list = new ArrayList<Lugares>();
+	public static List<Objetos>objetos_list = new ArrayList<Objetos>();
+    public static List<NPC>npc_list = new ArrayList<NPC>();
 
 
     public Leer(){
@@ -68,9 +71,9 @@ public class Leer {
                 }else{
 
                     if(entrada ==0){
-                        crear_localizaciones(elemento,localizaciones);
+                        crear_localizaciones(elemento,localizaciones_list);
                     }else if(entrada == 1){
-                        crear_personajes(elemento,personajes_list,lista_final,contador,npc);
+                        crear_personajes(elemento,personajes_list,lista_final,contador,npc_list);
                         contador++;
                     }else if(entrada == 2){
                         crear_objetos(elemento,objetos_list,lista_final);
@@ -82,7 +85,7 @@ public class Leer {
     }
 
 
-    static void crear_localizaciones(String elemento, List<Lugares> localizaciones){
+    static void crear_localizaciones(String elemento, List<Lugares>localizaciones_list){
         
         ArrayList<String> lista_aux = new ArrayList<String>();
 
@@ -90,10 +93,10 @@ public class Leer {
         String lugar=temp[0];                                                                            
         String[] adyacentes=temp[1].trim().split(",");
         for(String a:adyacentes) {lista_aux.add(a);}
-        localizaciones.add(new Lugares(lugar,lista_aux));
+       localizaciones_list.add(new Lugares(lugar,lista_aux));
     }
 
-    static void crear_personajes(String elemento, List<Personajes>personajes_list,List<String> lista_final,int contador,List<NPC> npc){
+    static void crear_personajes(String elemento, List<Personajes>personajes_list,List<String> lista_final,int contador,List<NPC>npc_list){
 
         for(String elemento_final : lista_final ){
             if(elemento_final.contains("<Localizacion Personajes>")){
@@ -112,7 +115,7 @@ public class Leer {
                     
                     }else if(contador !=0){
                        personajes_list.add(new NPC(nombrePJ,posicion,posicion_final));
-                        npc.add(new NPC(nombrePJ, posicion, posicion_final));
+                       npc_list.add(new NPC(nombrePJ, posicion, posicion_final));
                     }
 
                 }

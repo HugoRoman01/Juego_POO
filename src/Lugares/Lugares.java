@@ -1,13 +1,15 @@
+package Lugares;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Lugares {
+import Personajes.General;
+
+public class Lugares extends General{
 	private List<String> adyacenciasLocalizaciones = new ArrayList<String>();
-    private String lugar;
 
 
-    public Lugares(String lugar,List<String> adyacenciasLocalizaciones){
-        this.lugar = lugar;
+    public Lugares(String nombre,List<String> adyacenciasLocalizaciones){
+        super(nombre);
         this.adyacenciasLocalizaciones = adyacenciasLocalizaciones;
 
     }
@@ -16,12 +18,10 @@ public class Lugares {
         return adyacenciasLocalizaciones;
     }
 
-    public String getLugar(){
-        return lugar;
-    }
+ 
 
     public void imprimir(){
-        System.out.println(this.getLugar()+ " esta conectado con: ");
+        System.out.println(this.getNombre()+ " esta conectado con: ");
         for(String elemento : adyacenciasLocalizaciones) {
 			System.out.print(elemento + " ");
 		}
