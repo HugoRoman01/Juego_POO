@@ -58,11 +58,14 @@ public class Personajes extends General{
 		this.nombre_peticion = nombre_peticion;
 	}
 
-
-    public void imprimir(){
-        System.out.println(this.getNombre()+ " esta en " + this.getPosicion() +
-         " y su destino es " + this.getPosicionFinal()); 
+	public String toString() {
+		if(this.objeto==null) {
+			return(this.getNombre() + " esta en " + this.posicion + " y no tiene ningun objeto. Su objetivo es: " + this.posicion_final);
+		}else {
+			return(this.getNombre() + " esta en " + this.posicion + " y tiene el objeto: " + this.objeto.getNombre() + " Su objetivo es " + this.posicion_final);
+		}
 	}
+    
 
 
     //ACCIONES

@@ -1,10 +1,11 @@
 import Personajes.*;
 import Objetos.*;
-
-import java.util.List;
-
 import Lectura.Leer;
 import Lugares.*;
+
+
+import java.util.List;
+import java.util.Scanner;
 
 
 public class Controlador{
@@ -22,19 +23,21 @@ public class Controlador{
 
     public static void main(String[] args) {
 
-        System.out.println("Bienvenido a nuestro juego");
+        Leer leer = new Leer();
+        Scanner sc = new Scanner(System.in);
 
+        System.out.println("Bienvenido a nuestro juego \n");
 
         do{
-
-            for( Personajes personajes : Leer.personajes_list){
-
+            
+            for( Personajes personajes : leer.personajes_list){
                 if(personajes.getClass().equals(Jugador.class)){
 
                     System.out.println("TURNO JUGADOR");
                     
-                    ImprimirDatosRonda(personajes,Leer.personajes_list,Leer.localizaciones_list,Leer.objetos_list);
+                    ImprimirDatosRonda(personajes,leer.personajes_list,leer.localizaciones_list,leer.objetos_list);
                     imprimeMenu();
+                    op = sc.nextInt();
 
                     switch(op){
                 
@@ -42,18 +45,35 @@ public class Controlador{
                                 
                             System.out.println("NADA");
                             nada++;
-                               if(nada==3) {System.out.println("FIN DEL JUEGO");}  //caso de que ningun personaje haga nada
-                               continue;
-        
-        
+                            if(nada==3) {System.out.println("FIN DEL JUEGO");}  //caso de que ningun personaje haga nada
+                        break;
+
                         case 1:  //moverse
-        
-                        //imprimir los lugares que se puede ir
-                        
-                        //imprimir otra vez los lugares
-                        //introducir donde quieres ir
+
+                        Scanner direccion = new Scanner(System.in);
+                        int correcta=0;
+                        System.out.println("MOVERSE");
+                        ImprimirLocalizacionesDisponibles(personajes);
+                        System.out.println("A donde quieres moverte?");
+                        String movimiento = direccion.nextLine();
+                        for(Lugares l : Leer.localizaciones_list){
+                            if(personajes.getPosicion().equals(l.getNombre())){
+                                do{
+                                    for(String adyacentes : l.getAdyacencia()){
+                                        adyacentes=adyacentes.trim();
+                                        if(adyacentes.equals(movimiento)){
+                                            correcta=1;
+                                            personajes.moverse(adyacentes);
+                                            System.out.println(personajes.toString());
+                                        }
+                                    }
+                                }while(correcta==0);
+                            }
+                        }
                         
                         MovimientosTotales++;
+                        break;
+
                         case 2:  //coger un objeto
                         
                         //mirar que haya objetos en la sala
@@ -63,13 +83,19 @@ public class Controlador{
         
                         //introducir el objeto que se quiere coger
                         CogerObjetosTotales++;
+                        break;
+
                         case 3:  //dejar un objeto
         
         
                         SoltarObjetosTotales++;
+                        break;
+                        
                         case 4:  //dar un objeto
         
                         DarObjetosTotales++;
+                        break;
+
                         case 5: //pedir objeto
         
         
@@ -90,10 +116,11 @@ public class Controlador{
 
         }while(nada !=3);
 
+        sc.close();
     }
 
     public static void imprimeMenu(){
-        
+        System.out.println("\n\n----------------------------------------------------------");
         System.out.println("0.Nada");
         System.out.println("1.Ir a");
         System.out.println("2.Coger un Objeto");
@@ -101,6 +128,9 @@ public class Controlador{
         System.out.println("4.Dar un objeto");
         System.out.println("5.Pedir un objeto");
         System.out.println("6.Imprimir estadisticas");
+        System.out.println("Elije opcion:");
+        System.out.println("----------------------------------------------------------");
+
     }
 
     public static void ImprimirDatosRonda(Personajes personajes, List<Personajes> personajes_list, List<Lugares> localizaciones_list, List<Objetos> objetos_list){
@@ -108,23 +138,23 @@ public class Controlador{
           //JUGADOR
 
         if(personajes.getObjeto() != null){
-            System.out.println(personajes.getNombre() + personajes.getPosicion() + personajes.getObjeto());
+            System.out.println("\n"+personajes.getNombre() +" esta en " + personajes.getPosicion()+" y tiene " + personajes.getObjeto().getNombre() + "\n");
 
         }else{
-            System.out.println(personajes.getNombre() + personajes.getPosicion());
+            System.out.println(personajes.getNombre() +" esta en "+ personajes.getPosicion());
 
         }
 
         //Localizaciones
-        System.out.println("LOCALIZACIONES");
+        System.out.println( "LOCALIZACIONES");
+        System.out.println( "-------------------");
 
         for(Lugares lugares : Leer.localizaciones_list){
-
-            if(personajes.getPosicion().contains(lugares.getNombre())){
+                System.out.print("\n" + lugares.getNombre()+ " conectado con ");
                 for(String elemento : lugares.getAdyacencia()){
-                    System.out.println(elemento);                    
+                    System.out.print(elemento);                    
                 }
-            }
+            
 
         }
 
@@ -138,12 +168,13 @@ public class Controlador{
         }
 
         if(objetos_sala != 0){
-            System.out.println("OBJETOS");
+            System.out.println("\n\nOBJETOS");
+            System.out.println( "----------");
             for(Objetos objetos : Leer.objetos_list){
                 System.out.println(objetos.getNombre());
             }
         }else{
-            System.out.println("No hay objetos en esta sala");
+            System.out.println("No hay objetos"+ "\n");
         }
 
         //PERSONAJES
@@ -157,20 +188,21 @@ public class Controlador{
         }
 
         if(personajes_contador !=0){
-            System.out.println("PERSONAJES");
+            System.out.println( "\nPERSONAJES");
+            System.out.println( "----------------");
             for(Personajes p : Leer.personajes_list){
                 if(p.getNombre() != personajes.getNombre()){
                     if(p.getObjeto() != null){
-                        System.out.println(p.getNombre() + p.getObjeto());
+                        System.out.println(p.getNombre() +" esta en " + p.getPosicion()+" y tiene " + p.getObjeto().getNombre());
                     }else{
-                        System.out.println(p.getNombre());
+                        System.out.println(p.getNombre() +" esta en "+ p.getPosicion());
                     }
                 }
             }
 
 
         }else if(personajes_contador == 0){
-            System.out.println("No hay nadie");
+            System.out.println("No hay nadie"+ "\n");
 
         }
 
@@ -178,6 +210,19 @@ public class Controlador{
 
 
     }  
+
+    static void ImprimirLocalizacionesDisponibles(Personajes personajes){
+        System.out.println("\n----------------------------------------------------------");
+
+        for(Lugares l : Leer.localizaciones_list){
+            if(personajes.getPosicion().contains(l.getNombre())){
+                l.imprimir();
+            }
+        }
+        System.out.println("----------------------------------------------------------");
+
+
+    }
 
     
 

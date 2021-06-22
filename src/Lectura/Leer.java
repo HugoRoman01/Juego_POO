@@ -26,7 +26,7 @@ public class Leer {
         
              //LEEMOS EL FICHERO INICIAL    
             try{
-                String inic_state = System.getProperty("user.dir") + "\\documentos\\inic_state.txt";//Path del documento inicial
+                String inic_state = System.getProperty("user.dir") + "\\src\\documentos\\inic_state.txt";//Path del documento inicial
                 FileReader f = new FileReader(inic_state);
                 BufferedReader b = new BufferedReader(f);
                 
@@ -43,7 +43,7 @@ public class Leer {
 
             //LEER EL FICHERO DE OBJETIVOS Y ENLISTARLOS
             try {
-                String objetivos = System.getProperty("user.dir") + "\\documentos\\objetivos.txt";
+                String objetivos = System.getProperty("user.dir") + "\\src\\documentos\\objetivos.txt";
                 FileReader f2 = new FileReader(objetivos);
                 BufferedReader b2 = new BufferedReader(f2);
 
@@ -97,45 +97,52 @@ public class Leer {
     }
 
     static void crear_personajes(String elemento, List<Personajes>personajes_list,List<String> lista_final,int contador,List<NPC>npc_list){
-
+        int op =0;
         for(String elemento_final : lista_final ){
             if(elemento_final.contains("<Localizacion Personajes>")){
-
-                String[] temp= elemento.replace(")"," ").trim().split("\\(");
-                String nombrePJ = temp[0];
-                String posicion = temp[1].trim(); 
-    
-                String[] temp2= elemento_final.replace(")"," ").trim().split("\\(");
-                String nombre_final = temp2[0].trim();
-                String posicion_final = temp2[1].trim();
-
-                if(nombrePJ.contains(nombre_final)){
-                    if(contador==0){
-                      personajes_list.add(new Jugador(nombrePJ,posicion,posicion_final));
-                    
-                    }else if(contador !=0){
-                       personajes_list.add(new NPC(nombrePJ,posicion,posicion_final));
-                       npc_list.add(new NPC(nombrePJ, posicion, posicion_final));
-                    }
-
-                }
-    
-    
+                op=1;
             }
+
+        if(op==1){
+            String nombrePJ = elemento.replaceFirst("(.*)\\((.*)\\)", "$1") ;
+            String posicion = elemento.replaceFirst("(.*)\\((.*)\\)", "$2") ;
+
+            String nombre_final = elemento_final.replaceFirst("(.*)\\((.*)\\)", "$1") ;
+            String posicion_final = elemento_final.replaceFirst("(.*)\\((.*)\\)", "$2") ;
+
+            if(nombrePJ.contains(nombre_final)){
+
+                if(contador==0){
+                  personajes_list.add(new Jugador(nombrePJ,posicion,posicion_final));
+                
+                }else if(contador !=0){
+                   personajes_list.add(new NPC(nombrePJ,posicion,posicion_final));
+                   npc_list.add(new NPC(nombrePJ, posicion, posicion_final));
+                }
+
+           }
+
+        }
 
         }
     }
 
     static void crear_objetos(String elemento, List<Objetos>objetos_list,List<String> lista_final){
+        int op2 =0;
 
         for(String elemento_final : lista_final ){
             if(elemento_final.contains("<Posesion Objetos>")){
-                String[] temp= elemento.replace(")"," ").trim().split("\\(");
-                String nombreOBJ = temp[0];
-                String localizacion = temp[1].trim();
-                String[] temp2= elemento_final.replace(")"," ").trim().split("\\(");
-                String nombreOBJ_final = temp2[0];
-                String localizacion_final = temp2[1].trim();
+                op2=1;
+            }
+        
+
+
+            if(op2==1){
+                String nombreOBJ = elemento.replaceFirst("(.*)\\((.*)\\)", "$1") ;
+                String localizacion =  elemento.replaceFirst("(.*)\\((.*)\\)", "$2") ;
+
+                String nombreOBJ_final = elemento_final.replaceFirst("(.*)\\((.*)\\)", "$1") ;
+                String localizacion_final = elemento_final.replaceFirst("(.*)\\((.*)\\)", "$2") ;
 
                 if(nombreOBJ.contains(nombreOBJ_final)){
                     if(localizacion_final.contains(nombreOBJ)){
@@ -155,10 +162,10 @@ public class Leer {
                 }
     
             }
-
+        }
            
 
-        }
+        
 
 
     }
