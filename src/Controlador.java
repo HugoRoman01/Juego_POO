@@ -83,6 +83,7 @@ public class Controlador{
                         ImprimirObjetosDisponibles(personajes);  
                         do{
                             System.out.println("Que objeto quieres coger?");   
+                            System.out.println(personajes.getObjeto());
                             String cosa = obtener.nextLine(); 
                             cosa = cosa.trim();   
                             for(Objetos obj : Leer.objetos_list){

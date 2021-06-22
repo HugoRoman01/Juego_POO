@@ -90,11 +90,12 @@ public class Personajes extends General{
     public void coger_objeto(Objetos objetos) throws RuntimeException{
        
         if(objetos.getlocalizacion().equals(this.posicion)){    //VER SI EL JUGADOR ESTA EN LA SALA DEL OBJETO
-            if(this.objeto == null){
+            if(this.objeto ==null){
                 this.setObjeto(objetos);
                 objetos.setLocalizacion(this.getNombre());
+                System.out.println("llego");
             }
-            if(this.objeto != null){
+            else if(this.objeto != null){
                 throw new Excepciones(this.getNombre() + " ya posee un objeto");
 
             }
