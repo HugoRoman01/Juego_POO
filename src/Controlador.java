@@ -112,7 +112,28 @@ public class Controlador{
                         break;
                         
                         case 4:  //dar un objeto
-        
+                        Scanner dar = new Scanner(System.in);
+                        int correcta3 = 0;
+                        System.out.println("DAR OBJETO");
+                        ImprimirPersonajesDisponibles(personajes);
+                        do{
+                            System.out.println("A quien quieres dar el objeto?");
+                            String entregar = dar.nextLine();
+                            entregar = entregar.trim();
+
+                            for(Personajes p : Leer.personajes_list){
+                                if(p.getPosicion().equals(personajes.getPosicion())){
+                                    if(p.getNombre().equals(entregar)){
+                                        personajes.dar_objeto(p);
+                                        System.out.println(personajes.getNombre()+ " le da el objeto "+ p.getObjeto() +" a " + p.getNombre());
+                                        correcta3 = 1; 
+                                    }
+                                }
+                            }
+
+
+                        }while(correcta3 ==0);
+                        
                         DarObjetosTotales++;
                         break;
 
@@ -256,7 +277,39 @@ public class Controlador{
 
         System.out.println("----------------------------------------------------------");
     }
+    
+    //PERSONAJES DISPONIBLES
+    static void ImprimirPersonajesDisponibles(Personajes personajes){
+        int contador_personajes = 0;
+        int temp = 0;
+        System.out.println("\n----------------------------------------------------------");
 
+        for(Personajes p : Leer.personajes_list){
+            if(p.getPosicion().equals(personajes.getPosicion())){
+                contador_personajes++;
+            }
+        }
+
+        if(contador_personajes != 0){
+            System.out.println("Personajes disponibles" + personajes.getNombre());
+            for(Personajes pj : Leer.personajes_list){
+                if(pj.getNombre() != personajes.getNombre()){
+                    System.out.println(" " + pj.getNombre() );
+                }
+            }
+        }else if(contador_personajes == 0 || contador_personajes == 1){
+            System.out.println("No puedes dar ningun objeto ya que no hay nadie aparte de "+personajes.getNombre()+" en la localizacion actual");
+            temp = 1;
+        }
+
+        if(temp == 1){
+            op = 0;
+        }
+
+        System.out.println("----------------------------------------------------------");
+
+
+    }
     
 
 

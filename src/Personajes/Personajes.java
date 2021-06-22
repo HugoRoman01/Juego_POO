@@ -124,7 +124,7 @@ public class Personajes extends General{
         if(this.objeto == null){
             throw new Excepciones( this.getNombre() + " no posee ningun objeto");
         }
-        System.out.println("Peticion " + this.getNombrePeticion());
+       // System.out.println("Peticion " + this.getNombrePeticion());
 
         if(this.posicion.equals(NPC.getPosicion())){
             if(this.peticion == true && this.nombre_peticion.equals(NPC.getNombre())){
