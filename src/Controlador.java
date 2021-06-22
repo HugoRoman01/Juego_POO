@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Scanner;
 
 
+
 public class Controlador{
 
 
@@ -56,6 +57,7 @@ public class Controlador{
                         ImprimirLocalizacionesDisponibles(personajes);
                         System.out.println("A donde quieres moverte?");
                         String movimiento = direccion.nextLine();
+
                         for(Lugares l : Leer.localizaciones_list){
                             if(personajes.getPosicion().equals(l.getNombre())){
                                 do{
@@ -73,19 +75,36 @@ public class Controlador{
                         
                         MovimientosTotales++;
                         break;
-
+                    
                         case 2:  //coger un objeto
-                        
-                        //mirar que haya objetos en la sala
-                        
-                        //en caso de que haya
-                        //imprimir los objetos disponibles
-        
-                        //introducir el objeto que se quiere coger
+                        int correcta2 =0;
+                        Scanner obtener = new Scanner(System.in);
+                        System.out.println("COGER OBJETO");
+                        ImprimirObjetosDisponibles(personajes);  
+                        do{
+                            System.out.println("Que objeto quieres coger?");   
+                            String cosa = obtener.nextLine(); 
+                            cosa = cosa.trim();   
+                            for(Objetos obj : Leer.objetos_list){
+                                if(obj.getNombre().equals(cosa)){
+                                    personajes.coger_objeto(obj);
+                                    correcta2 = 1;
+                                    for(Objetos o : Leer.objetos_list){
+                                        o.imprimir();
+                                    }
+                                }
+                            }        
+                        }while (correcta2==0);
                         CogerObjetosTotales++;
                         break;
 
                         case 3:  //dejar un objeto
+
+                        System.out.println("DEJAR OBJETO");
+                        Objetos aux = personajes.getObjeto();
+                        personajes.dejar_objeto(personajes.getObjeto());
+                        System.out.println(personajes.getNombre() + " ha soltado el objeto " + aux.getNombre());
+
         
         
                         SoltarObjetosTotales++;
@@ -133,6 +152,7 @@ public class Controlador{
 
     }
 
+    //IMPRIMIR DATOS
     public static void ImprimirDatosRonda(Personajes personajes, List<Personajes> personajes_list, List<Lugares> localizaciones_list, List<Objetos> objetos_list){
 
           //JUGADOR
@@ -140,7 +160,7 @@ public class Controlador{
         if(personajes.getObjeto() != null){
             System.out.println("\n"+personajes.getNombre() +" esta en " + personajes.getPosicion()+" y tiene " + personajes.getObjeto().getNombre() + "\n");
 
-        }else{
+        }else if (personajes.getObjeto() == null){
             System.out.println(personajes.getNombre() +" esta en "+ personajes.getPosicion());
 
         }
@@ -210,7 +230,7 @@ public class Controlador{
 
 
     }  
-
+        //LOACLIZACIONES DISPONIBLES
     static void ImprimirLocalizacionesDisponibles(Personajes personajes){
         System.out.println("\n----------------------------------------------------------");
 
@@ -219,9 +239,21 @@ public class Controlador{
                 l.imprimir();
             }
         }
+
         System.out.println("----------------------------------------------------------");
+    }
 
+        //OBJETOS DISPONIBLES
+    static void ImprimirObjetosDisponibles(Personajes personajes){
+        System.out.println("\n----------------------------------------------------------");
 
+        for(Objetos o: Leer.objetos_list){
+            if(o.getlocalizacion().equals(personajes.getPosicion())){
+                o.imprimir();
+            }
+        }
+
+        System.out.println("----------------------------------------------------------");
     }
 
     

@@ -27,7 +27,7 @@ public class Objetos extends General {
     }
 
     public void imprimir() {
-        System.out.println(this.getNombre() + " esta en " + this.localizacion + " Objetivo: " + this.getlocalizacionFinal());
+        System.out.println("En la sala " + this.localizacion + " se encuentra el objeto " + this.getNombre()+ " y su objetivo es: " + this.getlocalizacionFinal());
     }
 
 

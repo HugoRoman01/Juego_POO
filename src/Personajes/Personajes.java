@@ -91,7 +91,7 @@ public class Personajes extends General{
        
         if(objetos.getlocalizacion().equals(this.posicion)){    //VER SI EL JUGADOR ESTA EN LA SALA DEL OBJETO
             if(this.objeto == null){
-                this.setObjeto(this.objeto);
+                this.setObjeto(objetos);
                 objetos.setLocalizacion(this.getNombre());
             }
             if(this.objeto != null){
