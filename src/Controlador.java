@@ -138,7 +138,47 @@ public class Controlador{
                         break;
 
                         case 5: //pedir objeto
-        
+
+                        System.out.println("PEDIR OBJETO");
+                        Scanner pedido = new Scanner(System.in);
+                        int contador_pj = 0;
+                        int correcta4=0;
+
+                        for(Personajes p : Leer.personajes_list){
+                            if(p.getPosicion().equals(personajes.getPosicion())){
+                                contador_pj++;
+                            }
+                        }
+                        if(contador_pj == 0 || contador_pj == 1){
+                            System.out.println("No se puede pedir objeto ya que no hay nadie en la sala");
+                        }
+                        if(contador_pj !=0 && contador_pj != 1){
+                            System.out.println("Personajes disponibles:");
+                            for(Personajes p2: Leer.personajes_list){
+                                if( p2.getNombre() != personajes.getNombre()){
+                                    if(p2.getPosicion().equals(personajes.getPosicion())){
+                                        System.out.println("\n" + p2.getNombre());
+                                    }
+                                }
+                            }
+                        }
+
+                        System.out.println("--------------------------------------------");
+                        do{
+                            System.out.println("A quien le quieres pedir el objeto?");
+                            String input = pedido.nextLine();
+                                input = input.trim();
+                                for(Personajes p4 : Leer.personajes_list){
+                                    if( p4.getNombre().equals(input)){
+                                        personajes.pedir_objeto(p4);
+                                        System.out.println(personajes.getNombre() + " le pide du objeto a " + input);
+                                        correcta4 =1;
+                                        
+                                    }
+                            }
+
+                        }while(correcta4==0);
+                        
         
                         PeticionesTotales++;
         
@@ -149,9 +189,13 @@ public class Controlador{
         
                     }
 
-                }
+                }else{
+                     //TURNO NPC
 
-                //TRUNO NPC
+                     System.out.println("TURNO NPC");
+                     //ImprimirDatosRonda(personajes,leer.personajes_list,leer.localizaciones_list,leer.objetos_list);
+
+                }
                 
             }
 
