@@ -215,7 +215,6 @@ public class Controlador{
                          System.out.println("opcion no disponible");
                              break;
                      }
-                     sc2.close();
                      System.out.println("--------------------------------------------");
                      System.out.println("--------------------------------------------");
                      System.out.println("--------------------------------------------");
@@ -229,6 +228,8 @@ public class Controlador{
         }while(nada !=3);
 
         sc.close();
+        sc2.close();
+
     }
 
     public static void imprimeMenu(){
