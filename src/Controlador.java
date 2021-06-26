@@ -24,7 +24,7 @@ public class Controlador{
 
     public static void main(String[] args) {
 
-        Leer leer = new Leer();
+        Leer leer = new Leer();                 //CREAR OBJETO PARA USAR LA CLASE
         Scanner sc = new Scanner(System.in);
         Scanner sc2 = new Scanner(System.in);
 
@@ -182,12 +182,16 @@ public class Controlador{
                         
         
                         PeticionesTotales++;
-        
+                        break;
                         case 6:
         
                         System.out.println("Movimientos Realizados: " + MovimientosTotales + "\n" + "Objetos recogidos: "+ CogerObjetosTotales + "\n" +"Objetos soltados: " +SoltarObjetosTotales + "\n" +
                         "Objetos dados: " + DarObjetosTotales + "\n" + "Peticiones realizadas: "  + PeticionesTotales + "\n" + "\n");
-        
+                        break;
+
+                        default:
+                        System.out.println("OPCION NO DISPONIBLE");
+                        break;
                     }
 
                 }else{
@@ -211,6 +215,7 @@ public class Controlador{
                          System.out.println("opcion no disponible");
                              break;
                      }
+                     sc2.close();
                      System.out.println("--------------------------------------------");
                      System.out.println("--------------------------------------------");
                      System.out.println("--------------------------------------------");
