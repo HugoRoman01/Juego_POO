@@ -26,6 +26,7 @@ public class Controlador{
 
         Leer leer = new Leer();
         Scanner sc = new Scanner(System.in);
+        Scanner sc2 = new Scanner(System.in);
 
         System.out.println("Bienvenido a nuestro juego \n");
 
@@ -197,6 +198,19 @@ public class Controlador{
                      System.out.println("TURNO NPC");
                      ImprimirDatosRonda(personajes,Leer.personajes_list,Leer.localizaciones_list,Leer.objetos_list);
                     //AQUI DEBERIA ESTAR EL CODIGO DEL NPC GUIADO POR LAS CREENCIAS PERO NO SE HA REALIZADO 
+                     imprimeMenu();
+                     int op2 = sc2.nextInt();
+                     switch (op2) {
+                         case 0:
+                                System.out.println("NADA");
+                                nada++;
+                                if(nada==3) {System.out.println("FIN DEL JUEGO");}
+                             break;
+                     
+                         default:
+                         System.out.println("opcion no disponible");
+                             break;
+                     }
                      System.out.println("--------------------------------------------");
                      System.out.println("--------------------------------------------");
                      System.out.println("--------------------------------------------");
