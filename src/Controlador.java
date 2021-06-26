@@ -31,12 +31,12 @@ public class Controlador{
 
         do{
             
-            for( Personajes personajes : leer.personajes_list){
+            for( Personajes personajes : Leer.personajes_list){
                 if(personajes.getClass().equals(Jugador.class)){
 
                     System.out.println("TURNO JUGADOR");
                     
-                    ImprimirDatosRonda(personajes,leer.personajes_list,leer.localizaciones_list,leer.objetos_list);
+                    ImprimirDatosRonda(personajes,Leer.personajes_list,Leer.localizaciones_list,Leer.objetos_list);
                     imprimeMenu();
                     op = sc.nextInt();
 
@@ -191,9 +191,17 @@ public class Controlador{
 
                 }else{
                      //TURNO NPC
-
+                     System.out.println("--------------------------------------------");
+                     System.out.println("--------------------------------------------");
+                     System.out.println("--------------------------------------------");
                      System.out.println("TURNO NPC");
-                     //ImprimirDatosRonda(personajes,leer.personajes_list,leer.localizaciones_list,leer.objetos_list);
+                     ImprimirDatosRonda(personajes,Leer.personajes_list,Leer.localizaciones_list,Leer.objetos_list);
+                    //AQUI DEBERIA ESTAR EL CODIGO DEL NPC GUIADO POR LAS CREENCIAS PERO NO SE HA REALIZADO 
+                     System.out.println("--------------------------------------------");
+                     System.out.println("--------------------------------------------");
+                     System.out.println("--------------------------------------------");
+
+
 
                 }
                 
@@ -222,9 +230,12 @@ public class Controlador{
     public static void ImprimirDatosRonda(Personajes personajes, List<Personajes> personajes_list, List<Lugares> localizaciones_list, List<Objetos> objetos_list){
 
           //JUGADOR
+          System.out.println( "\n-------------------");
+          System.out.println("JUGADOR ACTUAL");
+          System.out.println( "-------------------");
 
         if(personajes.getObjeto() != null){
-            System.out.println("\n"+personajes.getNombre() +" esta en " + personajes.getPosicion()+" y tiene " + personajes.getObjeto().getNombre() + "\n");
+            System.out.println("\n"+personajes.getNombre() +" esta en " + personajes.getPosicion()+" y tiene " + personajes.getObjeto().getNombre());
 
         }else if (personajes.getObjeto() == null){
             System.out.println(personajes.getNombre() +" esta en "+ personajes.getPosicion());
@@ -232,6 +243,7 @@ public class Controlador{
         }
 
         //Localizaciones
+        System.out.println( "\n-------------------");
         System.out.println( "LOCALIZACIONES");
         System.out.println( "-------------------");
 
@@ -254,8 +266,9 @@ public class Controlador{
         }
 
         if(objetos_sala != 0){
-            System.out.println("\n\nOBJETOS");
-            System.out.println( "----------");
+            System.out.println( "\n-------------------");
+            System.out.println("OBJETOS");
+            System.out.println( "-------------------");
             for(Objetos objetos : Leer.objetos_list){
                 System.out.println(objetos.getNombre());
             }
@@ -274,8 +287,9 @@ public class Controlador{
         }
 
         if(personajes_contador !=0){
-            System.out.println( "\nPERSONAJES");
-            System.out.println( "----------------");
+            System.out.println( "\n-------------------");
+            System.out.println( "PERSONAJES");
+            System.out.println( "-------------------");
             for(Personajes p : Leer.personajes_list){
                 if(p.getNombre() != personajes.getNombre()){
                     if(p.getObjeto() != null){
